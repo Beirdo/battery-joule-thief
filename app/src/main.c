@@ -11,7 +11,7 @@
 #include <drivers/adc.h>
 #include <drivers/pwm.h>
 #include <kernel.h>
-#include <adafruit-ssd1306.h>
+#include <adafruit-gfx-api.h>
 
 #define IOEXP_COUNT 7
 #define IOEXP_INST(x)   ioexp[x] = device_get_binding(DT_LABEL(DT_NODELABEL(ioexp##x)))
@@ -563,7 +563,7 @@ void main(void)
     }
     
     /* Initialize the Adafruit SSD module */
-    SSD1306_initialize(SSD1306_SWITCHCAPVCC);
+    SSD1306_initialize();
     
     /* Start the display update work item (it gets scheduled by buttons or 
      * ADC complete) 
