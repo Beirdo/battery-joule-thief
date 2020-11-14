@@ -563,7 +563,7 @@ void main(void)
     }
     
     /* Initialize the Adafruit SSD module */
-    SSD1306_initialize();
+    adafruit_gfx_initialize();
     
     /* Start the display update work item (it gets scheduled by buttons or 
      * ADC complete) 
