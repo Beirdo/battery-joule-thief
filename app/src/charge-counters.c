@@ -86,6 +86,7 @@ int charge_counters_init(void)
         
     	k_delayed_work_init(&counter->worker, charge_update_worker);
     }
+    return 0;
 }
 
 

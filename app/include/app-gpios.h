@@ -33,17 +33,21 @@ struct io_pins_t {
 preamble                                                                    \
     x(EXT_nINT, porta, 0, GPIO_INPUT, true, 0, GPIO_INT_EDGE_FALLING)       \
     x(nOE, porta, 1, GPIO_OUTPUT_HIGH, true, 0, 0x00)                       \
+    x(LEDBootR, porta, 22, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LEDBootG, porta, 23, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LEDCPUg, porta, 24, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
+    x(LEDCPUr, porta, 25, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
                                                                             \
     x(nSD1, ioexp[0], 0, GPIO_OUTPUT_HIGH, true, 0, 0x00)                   \
     x(INT1, ioexp[0], 1, GPIO_INPUT, true, 1, GPIO_INT_EDGE_FALLING)        \
     x(POL1, ioexp[0], 2, GPIO_INPUT, false, 0, 0x00)                        \
     x(PWRGD1, ioexp[0], 3, GPIO_INPUT, false, 1, GPIO_INT_EDGE_BOTH)        \
-    x(LED1ar, ioexp[0], 8, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)              \
-    x(LED1ag, ioexp[0], 9, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)              \
-    x(LED1br, ioexp[0], 10, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)             \
-    x(LED1bg, ioexp[0], 11, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)             \
-    x(BATSEL1a, ioexp[0], 12, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)           \
-    x(BATSEL1b, ioexp[0], 13, GPIO_OUTPUT_ACTIVE, 0, false, 0x00)           \
+    x(LED1ar, ioexp[0], 8, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LED1ag, ioexp[0], 9, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LED1br, ioexp[0], 10, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)             \
+    x(LED1bg, ioexp[0], 11, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)             \
+    x(BATSEL1a, ioexp[0], 12, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)           \
+    x(BATSEL1b, ioexp[0], 13, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)           \
                                                                             \
     x(nSD2, ioexp[1], 0, GPIO_OUTPUT_HIGH, true, 0, 0x00)                   \
     x(INT2, ioexp[1], 1, GPIO_INPUT, true, 1, GPIO_INT_EDGE_FALLING)        \
