@@ -33,10 +33,10 @@ struct io_pins_t {
 preamble                                                                    \
     x(EXT_nINT, porta, 0, GPIO_INPUT, true, 0, GPIO_INT_EDGE_FALLING)       \
     x(nOE, porta, 1, GPIO_OUTPUT_HIGH, true, 0, 0x00)                       \
-    x(LEDBootR, porta, 22, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
-    x(LEDBootG, porta, 23, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
-    x(LEDCPUg, porta, 24, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
-    x(LEDCPUr, porta, 25, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
+    x(LEDBootR, porta, 23, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LEDBootG, porta, 22, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)              \
+    x(LEDCPUg, porta, 25, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
+    x(LEDCPUr, porta, 24, GPIO_OUTPUT_ACTIVE, false, 0, 0x00)               \
                                                                             \
     x(nSD1, ioexp[0], 0, GPIO_OUTPUT_HIGH, true, 0, 0x00)                   \
     x(INT1, ioexp[0], 1, GPIO_INPUT, true, 1, GPIO_INT_EDGE_FALLING)        \
