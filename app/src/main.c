@@ -30,8 +30,8 @@ void main(void)
     initialized = false;
 
     ret = gpios_init();
-    if (ret !=0) {
-        return;
+    if (ret != 0) {
+        return main_failed();
     }
 
     /* Turn off the LEDs from the bootloader */

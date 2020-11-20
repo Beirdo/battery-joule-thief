@@ -31,7 +31,7 @@ struct display_item_t {
 struct display_page_t {
     bool display_logo;
     struct display_menu_t *menu;
-    struct display_item_t *items;
+    struct display_item_t **items;
     int item_count;
     int index_esc;
     int index_up;
@@ -41,7 +41,7 @@ struct display_page_t {
     int index_enter;
 };
 
-extern struct display_page_t *display_pages;
+extern struct display_page_t display_pages[];
 extern int display_page_count;
 
 #endif /* __app_display_screens_h_ */

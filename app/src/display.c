@@ -17,6 +17,66 @@
 
 const struct device *display;
 
+#if 0
+struct display_page_t {
+    bool display_logo;
+    struct display_menu_t *menu;
+    struct display_item_t **items;
+    int item_count;
+    int index_esc;
+    int index_up;
+    int index_left;
+    int index_right;
+    int index_down;
+    int index_enter;
+};
+#endif
+
+/*
+ * Logo
+ * Display items:
+ * - percentage bars for all 10 batteries + charger? (with active "LED" above each, selector arrow underneath, hit enter on one, it should go to battery/charger details page)
+ * - For each battery (1-5)
+ *   - selected battery designator
+ *   - selected battery type
+ *   - current voltage
+ *   - mAh drained from battery (total)
+ *   - active / drained
+ * - For charger
+ *   - current voltage
+ *   - mAh applied to battery (total)
+ *   - active / charged
+ * Hit enter on details page, should go to setup page for that battery/charger
+ * Battery setup page should only allow for deactivate if currently active
+ * Battery setup page should allow to select battery source, and battery type where applicable (i.e. JST connectors, 9V battery clip)
+ * Clear mAh counter when activating new source
+ * Charger setup page should only allow for deactivate if currently active
+ * Charger setup page should allow to reactivate with a new battery connected, not allow if the charged battery is still connected
+ * Clear mAh counter when activating charger for new battery
+ */
+
+
+struct display_page_t display_pages[] = {
+    {
+        .display_logo = true,
+        .index_esc = -1,
+        .index_up = -1,
+        .index_down = -1,
+        .index_right = -1,
+        .index_left = -1,
+        .index_enter = 1,
+    },
+    {
+        .menu = NULL, //&display_menu[0],
+        .index_esc = 0,
+        .index_up = -1,
+        .index_down = -1,
+        .index_right = -1,
+        .index_left = -1,
+        .index_enter = -1,
+    }
+};
+
 
 int display_init(void)
 {

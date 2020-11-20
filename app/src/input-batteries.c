@@ -12,17 +12,26 @@
 
 #include "app-utils.h"
 #include "app-gpios.h"
+#include "app-adcs.h"
 #include "app-handlers.h"
 #include "app-input-batteries.h"
 
 const struct device *pwm;
 
-#define BAT_ENTRY(label, select, green, red, shutdown, channel)             \
-    {#label, select, green, red, shutdown, channel, 0, false, {}, {}},
-    
+#define BAT_ENTRY(label, select, green, red, shutdown, channel, bat_choice)             \
+    {#label, V##label, select, green, red, shutdown, channel, 0, false, {}, {}, {}, bat_choice},
+
 FOR_ALL_BATS(struct battery_worker_t battery_worker[] = {, BAT_ENTRY, };)
 
-uint16_t battery_count = NELEMENTS(battery_worker);
+
+#define BAT_TYPE_ENTRY(label, max_voltage, min_voltage)						\
+	{#label, max_voltage, min_voltage},
+
+FOR_ALL_BAT_TYPES(const struct battery_type_t battery_types[] = {, BAT_TYPE_ENTRY, };)
+
+
+size_t battery_count = NELEMENTS(battery_worker);
+size_t battery_type_count = NELEMENTS(battery_types);
 
 
 static void battery_led_worker(struct k_work *work)
@@ -172,4 +181,20 @@ void handler_power_good(enum io_names_t pin_name)
 
     k_work_submit(&worker->led_worker);
     k_work_submit(&worker->pwm_worker);
+}
+
+
+uint8_t approximate_battery_level(struct battery_worker_t *battery)
+{
+	uint16_t min_voltage = battery->battery_type.min_voltage;
+	uint16_t max_voltage = battery->battery_type.max_voltage;
+	uint16_t current_voltage;
+	uint16_t temp;
+	
+	current_voltage = clamp(adc_inputs[battery->signal].value_mv, min_voltage, max_voltage);
+
+	temp = (current_voltage - min_voltage) * 100;
+	temp /= (max_voltage - min_voltage);
+	
+	return temp;
 }
