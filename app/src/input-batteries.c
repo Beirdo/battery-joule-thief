@@ -203,3 +203,13 @@ uint8_t approximate_battery_level(int battery_index)
 	
 	return temp;
 }
+
+bool battery_enabled(int battery_index)
+{
+	if (battery_index < 0 || battery_index >= battery_count) {
+		return false;
+	}
+	
+	struct battery_worker_t *battery = &battery_worker[battery_index];
+	return battery->enabled;
+}

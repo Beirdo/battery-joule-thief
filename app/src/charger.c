@@ -57,3 +57,15 @@ uint8_t approximate_output_battery_level(void)
 	
 	return temp;
 }
+
+bool charger_enabled(void)
+{
+    int ret;
+    bool shutdown;
+
+    ret = read_io_pin(nSDO, &shutdown);
+    if (ret != 0) {
+        return false;
+    }
+    return !shutdown;
+}

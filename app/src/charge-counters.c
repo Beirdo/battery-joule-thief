@@ -13,20 +13,10 @@
 #include "app-gpios.h"
 #include "app-devices.h"
 #include "app-handlers.h"
+#include "app-charge-counters.h"
 
 
-struct charge_counter_t {
-    int32_t raw_count;
-    int32_t mAh;
-    uint64_t start_time;
-    enum io_names_t polarity;
-    enum io_names_t interrupt;
-    enum io_names_t shutdown;
-    struct k_delayed_work worker;
-};
-
-
-struct charge_counter_t charge_counter[ADC_COUNT] = {
+struct charge_counter_t charge_counter[CHARGE_COUNTER_COUNT] = {
     {0, 0, 0, POL1, INT1, nSD1, {}},
     {0, 0, 0, POL2, INT2, nSD2, {}},
     {0, 0, 0, POL3, INT3, nSD3, {}},

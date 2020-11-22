@@ -55,6 +55,7 @@ preamble                                            \
     x(NiCd_9V, 7200, 5400)                          \
     x(NiMH_9V, 7200, 5400)                          \
     x(Lithium_9V, 9000, 4800)                       \
+    x(LiIon_18650, 4200, 3000)                      \
 postamble
 
 
@@ -90,6 +91,7 @@ extern size_t battery_type_count;
 
 int input_batteries_init(void);
 uint8_t approximate_battery_level(int battery_index);
+bool battery_enabled(int battery_index);
 
 
 #endif /* __app_input_batteries_h_ */
