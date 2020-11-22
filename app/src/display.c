@@ -13,6 +13,8 @@
 #include "app-display.h"
 #include "app-display-screens.h"
 #include "app-gpios.h"
+#include "app-input-batteries.h"
+#include "app-charger.h"
 
 
 const struct device *display;
@@ -100,3 +102,51 @@ void handler_button(enum io_names_t pin_name)
 {
 }
 
+
+void draw_battery_level(int battery_index)
+{
+    int x0 = battery_index * 10;
+    int y0 = 16;
+    uint8_t percentage;
+    
+    if (battery_index == 12) {
+        /* This is the output battery */
+        percentage = approximate_output_battery_level();
+    } else if (battery_index >= 0 && battery_index < battery_count) {
+        percentage = approximate_battery_level(battery_index);
+    } else {
+        /* WTF?  nope. */
+        return;
+    }
+
+    int filled = ((percentage * 34) + 17) / 100;
+    
+    adafruit_gfx_drawRect(x0, y0 + 2, 8, 36, WHITE);
+    adafruit_gfx_drawRect(x0 + 2, y0, 4, 2, WHITE);
+    adafruit_gfx_drawRect(x0 + 1, y0 + 3 + (34 - filled), 6, filled, WHITE);
+}
+
+void draw_battery_selector(int battery_index)
+{
+    int x0 = battery_index * 10;
+    int y0 = 63;
+    
+    adafruit_gfx_fillTriangle(x0, y0, x0 + 7, y0, x0 + 3, y0 - 4, WHITE);
+}
+
+void draw_battery_enabled(int battery_index)
+{
+    int x0 = battery_index * 10;
+    int y0 = 56;
+    
+    adafruit_gfx_fillRect(x0, y0, 8, 2, WHITE);
+}
+
+void draw_big_arrow(void)
+{
+    int x0 = 104;
+    int y0 = 36;
+    
+    adafruit_gfx_fillRect(x0, y0 - 2, 6, 5, WHITE);
+    adafruit_gfx_fillTriangle(x0 + 6, y0 - 4, x0 + 6, y0 + 4, x0 + 10, y0, WHITE);
+}

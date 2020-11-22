@@ -10,6 +10,7 @@
 #include <zephyr.h>
 #include <kernel.h>
 #include "app-gpios.h"
+#include "app-adcs.h"
 
 
 struct battery_type_t {
@@ -88,7 +89,7 @@ extern const struct battery_type_t battery_types[];
 extern size_t battery_type_count;
 
 int input_batteries_init(void);
-uint8_t approximate_battery_level(struct battery_worker_t *battery);
+uint8_t approximate_battery_level(int battery_index);
 
 
 #endif /* __app_input_batteries_h_ */

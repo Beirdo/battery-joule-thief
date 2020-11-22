@@ -184,8 +184,13 @@ void handler_power_good(enum io_names_t pin_name)
 }
 
 
-uint8_t approximate_battery_level(struct battery_worker_t *battery)
+uint8_t approximate_battery_level(int battery_index)
 {
+	if (battery_index < 0 || battery_index >= battery_count) {
+		return 0;
+	}
+	
+	struct battery_worker_t *battery = &battery_worker[battery_index];
 	uint16_t min_voltage = battery->battery_type.min_voltage;
 	uint16_t max_voltage = battery->battery_type.max_voltage;
 	uint16_t current_voltage;

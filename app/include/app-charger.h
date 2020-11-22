@@ -10,5 +10,7 @@
 #include <zephyr.h>
 
 int charger_init(void);
+uint8_t approximate_output_battery_level(void);
+
 
 #endif /* __app_charger_h_ */

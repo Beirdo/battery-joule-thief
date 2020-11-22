@@ -8,6 +8,8 @@
 #include <kernel.h>
 
 #include "app-gpios.h"
+#include "app-utils.h"
+#include "app-adcs.h"
 
 
 int charger_init(void) {
@@ -41,3 +43,17 @@ void handler_charger(enum io_names_t pin_name)
     write_io_pin(LEDActive, !shutdown);
 }
 
+uint8_t approximate_output_battery_level(void)
+{
+	uint16_t min_voltage = 3000;
+	uint16_t max_voltage = 4200;
+	uint16_t current_voltage;
+	uint16_t temp;
+	
+	current_voltage = clamp(adc_inputs[VOUT].value_mv, min_voltage, max_voltage);
+
+	temp = (current_voltage - min_voltage) * 100;
+	temp /= (max_voltage - min_voltage);
+	
+	return temp;
+}
