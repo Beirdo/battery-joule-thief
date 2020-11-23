@@ -10,6 +10,7 @@
 #include "app-gpios.h"
 #include "app-utils.h"
 #include "app-adcs.h"
+#include "app-charger.h"
 
 
 int charger_init(void) {
@@ -37,10 +38,9 @@ void handler_charger(enum io_names_t pin_name)
     
     shutdown = standby || !charge;
 
-    write_io_pin(nSDO, shutdown);
     write_io_pin(LEDOg, charge);
     write_io_pin(LEDOr, standby);
-    write_io_pin(LEDActive, !shutdown);
+    charger_set_enabled(!shutdown);
 }
 
 uint8_t approximate_output_battery_level(void)
@@ -68,4 +68,10 @@ bool charger_enabled(void)
         return false;
     }
     return !shutdown;
+}
+
+void charger_set_enabled(bool enabled)
+{
+    write_io_pin(nSDO, !enabled);
+    write_io_pin(LEDActive, enabled);
 }

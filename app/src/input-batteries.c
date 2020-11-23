@@ -19,7 +19,7 @@
 const struct device *pwm;
 
 #define BAT_ENTRY(label, select, green, red, shutdown, channel, bat_choice)             \
-    {#label, V##label, select, green, red, shutdown, channel, 0, false, {}, {}, {}, bat_choice},
+    {#label, V##label, select, green, red, shutdown, channel, 0, false, {}, {}, -1, {}, bat_choice},
 
 FOR_ALL_BATS(struct battery_worker_t battery_worker[] = {, BAT_ENTRY, };)
 
@@ -212,4 +212,32 @@ bool battery_enabled(int battery_index)
 	
 	struct battery_worker_t *battery = &battery_worker[battery_index];
 	return battery->enabled;
+}
+
+
+void battery_set_enabled(int battery_index, bool enabled)
+{
+	if (battery_index < 0 || battery_index >= battery_count) {
+		return;
+	}
+
+    int ret;
+    enum battery_t active_battery;
+    
+    ret = get_active_battery(*io_pins[battery_worker[battery_index].select].pdev, &active_battery);
+    if (ret != 0) {
+        return;
+    }
+
+	/* Can't have both batteries in a bank enabled at the same time */
+	if (active_battery != (enum battery_t)battery_index && enabled) {
+		battery_worker[active_battery].enabled = false;
+		write_io_pin(battery_worker[active_battery].select, false);
+	}
+	
+	battery_worker[battery_index].enabled = enabled;
+	write_io_pin(battery_worker[battery_index].select, enabled);
+
+    k_work_submit(&battery_worker[battery_index].led_worker);
+    k_work_submit(&battery_worker[battery_index].pwm_worker);
 }

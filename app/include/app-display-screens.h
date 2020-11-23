@@ -7,10 +7,14 @@
 #ifndef __app_display_screens_h_
 #define __app_display_screens_h_
 
+typedef uint8_t *(*item_dynamic)(int);
 
 struct display_menu_item_t {
-    uint8_t *text;
-    int menu_item_id;
+    int x;
+    int y;
+    int w;
+    int size;
+    item_dynamic text;
 };
 
 typedef void (*menu_action)(int);
@@ -30,8 +34,6 @@ struct display_menu_ram_t {
     int index_top;
     int index_current;
 };
-
-typedef uint8_t *(*item_dynamic)(int);
 
 struct display_item_t {
     int x;

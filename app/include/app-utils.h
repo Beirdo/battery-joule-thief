@@ -14,6 +14,7 @@
 #define min(x, y) ((x) < (y) ? (x) : (y))
 #define max(x, y) ((x) > (y) ? (x) : (y))
 #define clamp(x, y, z) min(max((x), (y)), (z))
+#define _abs(x) ((x) < 0 ? -(x) : (x))
 
 
 #endif /* __app_utils_h_ */

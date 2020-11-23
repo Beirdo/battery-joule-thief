@@ -31,6 +31,7 @@ struct battery_worker_t {
     bool enabled;
     struct k_work led_worker;
     struct k_work pwm_worker;
+    int battery_type_index;
     struct battery_type_t battery_type;
     uint32_t battery_choice_bits;
 };
@@ -92,6 +93,7 @@ extern size_t battery_type_count;
 int input_batteries_init(void);
 uint8_t approximate_battery_level(int battery_index);
 bool battery_enabled(int battery_index);
+void battery_set_enabled(int battery_index, bool enabled);
 
 
 #endif /* __app_input_batteries_h_ */
